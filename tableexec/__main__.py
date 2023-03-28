@@ -34,7 +34,7 @@ def main():
         print("Please select sheet from: ")
         for sheet in data.keys():
             print(sheet)
-            sys.exit(1)
+        sys.exit(1)
     data = data.rename(columns=lambda x: x.strip())
     
 

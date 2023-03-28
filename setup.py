@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'tableexec',
   packages = ["tableexec"],
-  version = '0.0.1',
+  version = '0.0.2',
   description = 'Execute command for every row in Excel/ODS table.',
   author = 'Stefan Nožinić',
   author_email = 'stefan@lugons.org',
