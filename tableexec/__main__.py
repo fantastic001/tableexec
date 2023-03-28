@@ -30,7 +30,13 @@ def main():
         data = data.join(data2.set_index(args.join_foreign), on=args.join_primary)
 
 
+    if isinstance(data, dict):
+        print("Please select sheet from: ")
+        for sheet in data.keys():
+            print(sheet)
+            sys.exit(1)
     data = data.rename(columns=lambda x: x.strip())
+    
 
     columns = data.columns 
     def executor(command, row):
