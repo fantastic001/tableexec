@@ -4,6 +4,7 @@ import sys
 import pandas as pd 
 import argparse
 import os 
+import re 
 
 def main():
     parser = argparse.ArgumentParser()
@@ -24,7 +25,10 @@ def main():
         ".ods": "odf"
     }
     doc_name, ext = os.path.splitext(args.document)
-    data: pd.DataFrame = pd.read_excel(args.document, engine=engines[ext], sheet_name=args.sheet)
+    if ext == ".csv":
+        data = pd.read_csv(args.document)
+    else:
+        data: pd.DataFrame = pd.read_excel(args.document, engine=engines[ext], sheet_name=args.sheet)
     if args.join_sheet is not None:
         data2 = pd.read_excel(args.document, engine=engines[ext], sheet_name=args.join_sheet)
         data = data.join(data2.set_index(args.join_foreign), on=args.join_primary)
@@ -41,7 +45,8 @@ def main():
     columns = data.columns 
     def executor(command, row):
         for column in columns:
-            command = command.replace(r"{{" +column+ r"}}", str(row[column]))
+            # command = command.replace(r"{{" +column+ r"}}", str(row[column]))
+            command = re.sub(r"{{\s*" + column + r"\s*}}", str(row[column]), command)
         proc = Popen(command, stdout=subprocess.PIPE, shell=True)
         stdout, stderr = proc.communicate()
         print(stdout.decode("utf-8"), end="")
