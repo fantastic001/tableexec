@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'tableexec',
   packages = ["tableexec"],
-  version = '0.0.3',
+  version = '0.0.4',
   description = 'Execute command for every row in Excel/ODS table.',
   author = 'Stefan Nožinić',
   author_email = 'stefan@lugons.org',
@@ -19,6 +19,6 @@ setup(
   install_requires=[
     "pandas", 
     "odfpy",
-    "xlrd"
+    "xlrd",
   ] # dependencies listed here 
 )
